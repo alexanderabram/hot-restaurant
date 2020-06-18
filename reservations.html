@@ -95,10 +95,10 @@
 
             // Here we grab the form elements
             var newReservation = {
-                customerName: $("#reserve-name").val().trim(),
-                phoneNumber: $("#reserve-phone").val().trim(),
-                customerEmail: $("#reserve-email").val().trim(),
-                customerID: $("#reserve-unique-id").val().trim()
+                customerName: $("#reservations-name").val().trim(),
+                phoneNumber: $("#reservations-phone").val().trim(),
+                customerEmail: $("#reservations-email").val().trim(),
+                customerID: $("#reservations-unique-id").val().trim()
             };
 
             console.log(newReservation);
@@ -122,10 +122,10 @@
                     }
 
                     // Clear the form when submitting
-                    $("#reserve-name").val("");
-                    $("#reserve-phone").val("");
-                    $("#reserve-email").val("");
-                    $("#reserve-unique-id").val("");
+                    $("#reservations-name").val("");
+                    $("#reservations-phone").val("");
+                    $("#reservations-email").val("");
+                    $("#reservations-unique-id").val("");
 
                 });
 
