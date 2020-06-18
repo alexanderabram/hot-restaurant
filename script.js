@@ -45,7 +45,7 @@ $.ajax({
         $("#waitList").empty();
     
         $.each(waitlist, function(reservation, i) {
-            // generate sections from data (tables object)
+            // generate sections from data 
             var liElement = $("<li>");
             liElement.attr("class", "list-group-item mt-4");
             var h2ElementTable = $("<h2>");

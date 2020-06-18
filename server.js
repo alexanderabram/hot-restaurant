@@ -18,8 +18,8 @@ app.get("/", function(req, res) {
 app.get("/tables", function(req, res) {
     res.sendFile(path.join(__dirname, "/tables.html"));
 });
-app.get("/reserve", function(req, res) {
-    res.sendFile(path.join(__dirname, "/reserve.html"));
+app.get("/reservations", function(req, res) {
+    res.sendFile(path.join(__dirname, "/reservations.html"));
 });
 app.get("/api/tables", function(req, res) {
     var result = {
@@ -33,9 +33,9 @@ app.get("/api/waitlist", function(req, res) {
     };
     res.json(result);
 });
-app.post("/reserve", function(req, res) {
+app.post("/reservations", function(req, res) {
     var reservation = req.body;
-    console.log("reserve", reservation);
+    console.log("reservation", reservation);
     if (tables.length < 5) {
         tables.push(reservation);
     }
