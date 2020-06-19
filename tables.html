@@ -1,175 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Tables Page</title>
-
-    <!-- Latest compiled and minified CSS & JS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
-</head>
-
+    <head>
+        <meta charset="UTF-8">
+        <title>Tables Page</title>
+    
+        <!-- Latest compiled and minified CSS & JS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://code.jquery.com/jquery.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+    </head>
+    
 <body data-gr-c-s-loaded="true">
-
     <div class="container">
-
         <div class="jumbotron">
-            <h1 class="text-center"><span class="fa fa-fire"></span> Hot Restaurant</h1>
+            <h1 class="text-center">
+                <span class="fa fa-fire"></span>
+                Hot Restaurants Near You
+            </h1>
             <hr>
-            <h2 class="text-center">Current Reservations and Waiting List</h2>
+            <h2 class="text-center">Current reservations and Waiting list</h2>
             <br>
-
             <div class="text-center">
+                <a href="/reservations">
+                    <button class="btn btn-large btn-danger">
+                        <span class="fa fa-credit-card"></span>
+                        Make reservation
+                    </button>
+                </a>
 
-               
-
-                <a href="/reservations"><button class="btn btn-lg btn-danger"><span class="fa fa-credit-card"></span> Make
-
-                        Reservation</button></a>
-                <a href="/"><button class="btn btn-lg btn-default"><span class="fa fa-home"></span></button></a>
+                <a href="/">
+                    <button class="btn btn-large btn-default">
+                        <span class="fa fa-home"></span>
+                    </button>
+                </a>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-12">
-
-                <!-- Current Tables in Use -->
+                <!-- Current tables -->
                 <div class="card">
                     <div class="card-header">
                         <h4>Current Reservations</h4>
                     </div>
                     <div class="card-body">
-                        <ul id="tableList" class="list-group"></ul>
+                        <ul id="tableList" class="list-group">
+                            <li class="list-group-item mt-4">
+                                <h2>Table 1</h2>
+                                <hr>
+                                <h2>ID: </h2>
+                                <h2>Name: John Cena</h2>
+                                <h2>Email: johncena@email.com</h2>
+                                <h2>Phone: 123456789</h2>
+                            </li>
+                        </ul>
                     </div>
-                </div>
+                    <!-- Waiting List -->
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h4>Waiting List</h4>
+                        </div>
 
-                <!-- Waiting List Card -->
-                <div class="card mt-4">
-                    <div class="card-header">
-                        <h4>Waiting List</h4>
-                    </div>
-                    <div class="card-body">
-                        <ul id="waitList" class="list-group"></ul>
+                        <div class="card-body">
+                            <ul id="waitList" class="list-group">
+                                <li class="list-group-item mt-4">
+                                    <h2>Table 1</h2>
+                                    <hr>
+                                    <h2>ID:</h2>
+                                    <h2>Name: John Cena</h2>
+                                    <h2>Email: jonhcena@email.com</h2>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-
-        <footer class="footer mt-4">
+        <footer class="footer">
             <div class="container">
-                <p>Control Panel</p>
-                <p><a href="#" id="clear">Clear Table</a> | <a href="/api/tables">API Table Link</a> | <a
-                        href="/api/waitlist">API
-                        Wait List</a>
+                <p>
+                    <a href="/api/tables">API Table</a>
+                    |
+                    <a href="/api/waitlist">API Wait list</a>
                 </p>
             </div>
         </footer>
-
     </div>
+    <script>
+        $.ajax({
+    url: "http://localhost:3000/api/tables",
+    method: "GET"
+  }).then(function(response) {
+    const tables = response.data;
+    console.log("tables", tables)
+    console.log("response", response)
 
+        // select and empty container div
+        $("#tableList").empty();
+    
+        for (let i = 0; i < tables.length; i++) {
+            // generate sections from data (tables object)
+            var liElement = $("<li>");
+            liElement.attr("class", "list-group-item mt-4");
+            var h2ElementTable = $("<h2>");
+            var h2ElementID = $("<h2>");
+            var h2ElementName = $("<h2>");
+            var h2ElementEmail = $("<h2>");
+            var h2ElementPhone = $("<h2>");
+            var hrElement = $("<hr>");
+            // update text
+            h2ElementTable.text(`Table ${i + 1}`);
+            h2ElementID.text(`ID: ${tables[i].id}`);
+            h2ElementName.text(`Name: ${tables[i].name}`);
+            h2ElementEmail.text(`Email: ${tables[i].email}`);
+            h2ElementPhone.text(`Phone: ${tables[i].phoneNumber}`);
+            // append elements
+            liElement.append(h2ElementTable);
+            liElement.append(hrElement);
+            liElement.append(h2ElementID);
+            liElement.append(h2ElementName);
+            liElement.append(h2ElementEmail);
+            liElement.append(h2ElementPhone);
+            
+            $("#tableList").append(liElement);
+    
+        };
+  });
 
+$.ajax({
+    url: "http://localhost:3000/api/waitlist",
+    method: "GET"
+}).then(function(response) {
+    const waitlist = response.data;
 
-
-    <!-- BELOW CODE IS CRITICAL. IT HANDLES HOW FORM DATA IS LOADED FROM OUR SERVER -->
-    <script type="text/javascript">
-
-        // In this code, jQuery is used to "download" the data from our server
-        // We then dynamically display this content in our table. This is very similar to the group projects you just completed.
-        // It's also very similar to the NYT search application. In fact, I copied a ton of code from there.
-
-        function runTableQuery() {
-            // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
-            $.ajax({ url: "/api/tables", method: "GET" })
-                .then(function (tableData) {
-
-                    // Here we then log the tableData to console, where it will show up as an object.
-                    console.log(tableData);
-                    console.log("------------------------------------");
-
-                    // Loop through and display each of the customers
-                    for (var i = 0; i < tableData.length; i++) {
-
-                        // Get a reference to the tableList element and populate it with tables
-                        var tableList = $("#tableList");
-
-                        // Then display the fields in the HTML (Section Name, Date, URL)
-                        var listItem = $("<li class='list-group-item mt-4'>");
-
-                        listItem.append(
-                            $("<h2>").text("Table #" + (i + 1)),
-                            $("<hr>"),
-                            $("<h2>").text("ID: " + tableData[i].customerID),
-                            $("<h2>").text("Name: " + tableData[i].customerName),
-                            $("<h2>").text("Email: " + tableData[i].customerEmail),
-                            $("<h2>").text("Phone: " + tableData[i].phoneNumber)
-                        );
-
-                        tableList.append(listItem);
-                    }
-                });
+        // select and empty container div
+        $("#waitList").empty();
+    
+        for (let i = 0; i < waitlist.length; i++) {
+            // generate sections from data (tables object)
+            var liElement = $("<li>");
+            liElement.attr("class", "list-group-item mt-4");
+            var h2ElementTable = $("<h2>");
+            var h2ElementID = $("<h2>");
+            var h2ElementName = $("<h2>");
+            var h2ElementEmail = $("<h2>");
+            var h2ElementPhone = $("<h2>");
+            var hrElement = $("<hr>");
+            // update text
+            h2ElementTable.text(`Table ${i + 1}`);
+            h2ElementID.text(`ID: ${waitlist[i].id}`);
+            h2ElementName.text(`Name: ${waitlist[i].name}`);
+            h2ElementEmail.text(`Email: ${waitlist[i].email}`);
+            h2ElementPhone.text(`Phone: ${waitlist[i].phoneNumber}`);
+            // append elements
+            liElement.append(h2ElementTable);
+            liElement.append(hrElement);
+            liElement.append(h2ElementID);
+            liElement.append(h2ElementName);
+            liElement.append(h2ElementEmail);
+            liElement.append(h2ElementPhone);
+            
+            $("#waitList").append(liElement);
+        
         }
-
-        function runWaitListQuery() {
-
-            // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
-            $.ajax({ url: "/api/waitlist", method: "GET" })
-                .then(function (waitData) {
-
-                    // Here we then log the waitlistData to console, where it will show up as an object.
-                    console.log(waitData);
-                    console.log("------------------------------------");
-
-                    // Loop through and display each of the customers
-                    for (var i = 0; i < waitData.length; i++) {
-
-                        // Get a reference to the waitList element and populate it with tables
-                        var waitList = $("#waitList");
-
-                        // Then display the fields in the HTML (Section Name, Date, URL)
-                        var listItem = $("<li class='list-group-item mt-4'>");
-
-                        listItem.append(
-                            $("<h2>").text("Table #" + (i + 1)),
-                            $("<hr>"),
-                            $("<h2>").text("ID: " + waitData[i].customerID),
-                            $("<h2>").text("Name: " + waitData[i].customerName),
-                            $("<h2>").text("Email: " + waitData[i].customerEmail),
-                            $("<h2>").text("Phone: " + waitData[i].phoneNumber)
-                        );
-
-                        waitList.append(listItem);
-                    }
-                });
-        }
-
-        // This function resets all of the data in our tables. This is intended to let you restart a demo.
-        function clearTable() {
-            alert("Clearing...");
-
-            // Clear the tables on the server and then empty the elements on the client
-            $.ajax({ url: "/api/clear", method: "POST" }).then(function () {
-                $("#waitList").empty();
-                $("#tableList").empty();
-            });
-        }
-
-        $("#clear").on("click", clearTable);
-
-
-        // Run Queries!
-        // ==========================================
-        runTableQuery();
-        runWaitListQuery();
-
-
+});
     </script>
-
-
 </body>
-
 </html>
