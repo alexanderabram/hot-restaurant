@@ -1,8 +1,8 @@
 {
-  "name": "hot-restaurant",
+  "name": "restaurant-reservation",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "script.js",
   "dependencies": {
     "express": "^4.15.4"
   },
@@ -12,12 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alexanderabram/hot-restaurant.git"
+    "url": "git+https://github.com/Grigore94/Restaurant-reservation.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/alexanderabram/hot-restaurant/issues"
+    "url": "https://github.com/Grigore94/Restaurant-reservation/issues"
   },
-  "homepage": "https://github.com/alexanderabram/hot-restaurant#readme"
+  "homepage": "https://github.com/Grigore94/Restaurant-reservation#readme"
 }
